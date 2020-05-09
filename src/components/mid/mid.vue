@@ -27,15 +27,13 @@ export default {
 <style lang="scss">
 .mid-container{
     width: 100%;
-    height:140px;
-    top: 125px;
-    position: absolute;
+    height:100px;
     background: #ffffff;
     overflow: hidden;
     display: flex;
     color: #313131;
     z-index:0;
-    padding-top: 50px;
+    align-items: center;
     box-sizing: border-box;
     justify-content: space-around;
     font-size:12px;

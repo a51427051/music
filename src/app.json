@@ -5,6 +5,14 @@
     "pages/my/main",
     "pages/address/main"
   ],
+  "subPackages":[
+    {
+      "root": "pages/search",
+      "pages":[
+        "main"
+      ]
+    }
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#E3453A",

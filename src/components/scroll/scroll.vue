@@ -1,10 +1,10 @@
 <template>
     <div class="scroll-top">
-        <div class="top">
-          <div v-for="(item,i) in top" :key="i" @click="click(i)" :class="[item.id,active == i+1 ?'active' :'']">
-            {{item.name}}
-          </div>
+      <div class="top">
+        <div v-for="(item,i) in top" :key="i" @click="click(i)" :class="[item.id,active == i+1 ?'active' :'']">
+          {{item.name}}
         </div>
+      </div>
     </div>
 </template>
 
@@ -29,13 +29,7 @@ export default {
 
 <style lang="scss" scoped>
 .scroll-top{
-    width:100%;
-    height: 40px;
-    position: fixed;
-    z-index: 10;
-    left: 0;
-    top: 0;
-    background-color: #E3453A;
+
     .top{
        display: flex;
       justify-content: space-around;

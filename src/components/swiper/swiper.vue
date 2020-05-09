@@ -36,8 +36,7 @@ export default {
     width: 100%;
     height:160px;
     overflow: visible;
-    position: absolute;
-    top: 40px;
+    margin-top: 77px;
     z-index:10;
     .swiper-top {
         width:100%;
