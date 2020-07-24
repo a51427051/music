@@ -10,3 +10,9 @@ export function getSearchHot (params) {
 export function getSearchSuggest (params) {
   return get(`${API_URL}/search/suggest`, params)
 }
+export function getSearchList (params) {
+  return get(`${API_URL}/search`, params)
+}
+export function getNewSong (params) {
+  return get(`${API_URL}/personalized/newsong`, params)
+}

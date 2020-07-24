@@ -8,7 +8,7 @@
           <van-icon name="clear" @click="clearInput"/>
         </div>    
      </div>
-     <span>取消</span>
+     <span @click="jumpIndex">取消</span>
     </div>
 
     <!-- 热门搜索 -->
@@ -30,9 +30,17 @@
 
     <!-- 搜索建议 -->
     <div class="searchSuggest" v-if="searchSuggest">
-      <p v-for="(item,i) in suggestList" :key="i">
+      <p v-for="(item,i) in suggestList" :key="i" @click="clickSong(item.keyword)" >
         {{item.keyword}}
       </p>
+    </div>
+
+    <!-- 搜索结果 -->
+    <div class="searchSuggest searchSongList" v-if="songListHtml">
+      <div v-for="(item,i) in songList" :key="i" @click="chooseSong(item.keyword)" >
+        <p>{{item.name}}</p>
+        <span>{{item.artists[0].name}} - {{item.album.name}}</span>
+      </div>    
     </div>
 
   </div>
@@ -47,7 +55,9 @@ export default {
       search: '',
       suggestList: [],
       searchSuggest: false,
-      history: wx.getStorageSync('history') || []
+      history: wx.getStorageSync('history') || [],
+      songList: [],
+      songListHtml: false
     }
   },
   onLoad () {
@@ -59,6 +69,11 @@ export default {
       this.search = ''
       this.suggestList = []
       this.searchSuggest = false
+      this.songListHtml = false
+      this.songList = []
+    },
+    jumpIndex () {
+      this.$router.go(-1)
     },
     getSearchHot () {
       getSearchHot({ type: 'news' })
@@ -78,6 +93,8 @@ export default {
             }
             this.suggestList = response.data.result.allMatch
             this.searchSuggest = this.suggestList.length > 0 ? 'true' : 'false'
+            this.songListHtml = false
+            this.songList = []
           })
       } else {
         this.searchSuggest = false
@@ -101,6 +118,22 @@ export default {
         key: 'history',
         data: this.history
       })
+    },
+    // 点击歌曲搜索
+    clickSong (e) {
+      var suggest = e
+      if (suggest !== '') {
+        getSearchList({type: '1', keywords: suggest, 'limit': '100', offset: '2'})
+          .then(response => {
+            if (JSON.stringify(response.data.result) !== '{}') {
+              this.songList = response.data.result.songs
+              this.songListHtml = this.songList.length > 0 ? 'true' : 'false'
+            }
+          })
+      } else {
+        this.songListHtml = false
+        this.songList = []
+      }
     }
   }
 }
@@ -189,6 +222,28 @@ export default {
     line-height: 40px;
     height: 40px;
     border-bottom: 1px solid #eaeaea;
+    overflow: hidden;
+    text-overflow: ellipisis;
+    max-width: 100%;
   }
+}
+.searchSongList{
+    div{
+      padding: 0 10px;
+      border-bottom: 1px solid #eaeaea;
+      overflow: hidden;
+      text-overflow: ellipisis;
+      max-width: 100%;
+      p{
+        border-bottom: 0;
+        line-height: 30px;
+        height: 30px;
+        padding: 0
+      }
+      span{
+        line-height: 20px;
+        font-size: 13px
+      }
+    }
 }
 </style>

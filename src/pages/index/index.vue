@@ -10,6 +10,12 @@
     
     <swiper-t :banner="banner"></swiper-t>
     <mid-t :midimg="midList"></mid-t>
+
+    <!-- 最新音乐 -->
+    <div class="modelContent">
+      <p>最新音乐</p>
+      <song-t></song-t>
+    </div>
   </div>
 </template>
 
@@ -17,6 +23,7 @@
 import scroll from '@/components/scroll/scroll'
 import swiper from '@/components/swiper/swiper'
 import mid from '@/components/mid/mid'
+import song from '@/components/song/song'
 import {getBanner} from '@/api/api'
 
 export default {
@@ -55,7 +62,8 @@ export default {
           text: '排行榜'
         }
       ],
-      active: 1
+      active: 1,
+      song: []
     }
   },
   onLoad () {
@@ -64,7 +72,8 @@ export default {
   components: {
     'swiper-t': swiper,
     'scroll-t': scroll,
-    'mid-t': mid
+    'mid-t': mid,
+    'song-t': song
   },
   methods: {
     getBanner () {
@@ -107,5 +116,13 @@ export default {
         margin-right: 10px
       }
     }
+}
+.modelContent{
+  p{
+    line-height: 60px;
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 10px;
+  }
 }
 </style>
